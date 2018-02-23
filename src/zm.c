@@ -383,16 +383,27 @@ zshhdr(int type, char *hdr)
 {
 	register int n;
 	register unsigned short crc;
-	char s[30];
+	char s[39];
 	size_t len;
 
 	VPRINTF(3,("zshhdr: %s %lx", frametypes[(type & 0x7f)+FTOFFSET], rclhdr(hdr)));
-	s[0]=ZPAD;
-	s[1]=ZPAD;
-	s[2]=ZDLE;
-	s[3]=ZHEX;
-	zputhex(type & 0x7f ,s+4);
-	len=6;
+
+	len = 0;
+
+	if (type == ZRINIT){ 
+		// Prepend tmux safe DLE
+
+		char *tmux_dle = "\x1bPtmux;";
+		strncpy(s, tmux_dle, strlen(tmux_dle));
+		len = strlen(tmux_dle);
+	}
+
+	s[len++]=ZPAD;
+	s[len++]=ZPAD;
+	s[len++]=ZDLE;
+	s[len++]=ZHEX;
+	zputhex(type & 0x7f ,s+len);
+	len += 2;
 	Crc32t = 0;
 
 	crc = updcrc((type & 0x7f), 0);
@@ -416,6 +427,14 @@ zshhdr(int type, char *hdr)
 	{
 		s[len++]=021;
 	}
+
+	if (type == ZRINIT){ 
+		// Prepend tmux safe DLE
+
+		strncpy(s+len, "\x1b\\", 2);
+		len += 2;
+	}
+
 	flushmo();
 	write(1,s,len);
 }

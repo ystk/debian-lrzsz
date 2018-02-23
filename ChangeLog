@@ -1,3 +1,7 @@
+2018-02-23	Gareth <gbjk@theermeon.com>
+
+	* Fix tmux DLE header in ZRINIT for rz
+
 1998-06-15	Uwe Ohse  <uwe@ohse.de>
 
 	* src/rbsb.c (io_mode), case 1:
