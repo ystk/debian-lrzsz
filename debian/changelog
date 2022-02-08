@@ -1,3 +1,12 @@
+lrzsz (0.12.21-7+deb8u1) jessie-security; urgency=high
+
+  * Non-maintainer upload by the ELTS Team.
+  * CVE-2018-10195
+    possible sz data leak
+    (original patch from the Fedora project)
+
+ -- Thorsten Alteholz <debian@alteholz.de>  Tue, 25 Jan 2022 18:03:02 +0100
+
 lrzsz (0.12.21-7) unstable; urgency=low
 
   * Fixed file permissions.

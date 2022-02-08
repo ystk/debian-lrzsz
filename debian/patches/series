@@ -4,3 +4,5 @@ cat-id-tbl.diff
 include.diff
 mantypos.diff
 strstr.diff
+
+CVE-2018-10195-897010_zsdata.diff
